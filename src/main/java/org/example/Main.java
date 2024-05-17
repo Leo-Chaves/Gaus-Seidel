@@ -16,13 +16,30 @@ public class Main {
         array[2][2] = 6;
         array[2][3] = 0;
 
-        double grau = 0.001;
-        Sistema sistema = new Sistema(array, grau);
+        double grau = 0.01;
+        
+        GaussSeidel sistema = new GaussSeidel(array, grau);
 
         sistema.result();
         System.out.println("final:");
         System.out.println(sistema.getX1());
         System.out.println(sistema.getX2());
         System.out.println(sistema.getX3());
+
+
+        System.out.println();
+        System.out.println();
+
+        double[][] array2 = {{5,1,1}, {3,4,1}, {3,3,6}};
+        double [] solucao = {5,6,0};
+
+        double[][] array3 = {{3,-4,5,-7},{2,-4,5,-1},{3,-1,7,5},{1,2,-4,5}};
+        double [] solucao3 = {19,21,10,31};
+
+        SistemaCerto sistema2 = new SistemaCerto(array2, solucao, grau);
+        sistema2.show();
+
+        SistemaCerto sistema3 = new SistemaCerto(array3, solucao3, grau);
+        sistema3.show();
     }
 }

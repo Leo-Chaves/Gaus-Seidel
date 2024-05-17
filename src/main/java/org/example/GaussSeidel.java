@@ -1,6 +1,6 @@
 package org.example;
 
-public class Sistema {
+public class GaussSeidel {
 
     private double x1 = 0;
     private double x2 = 0;
@@ -13,7 +13,7 @@ public class Sistema {
     private double[][] sistema;
 
     private double grau;
-    public Sistema(double[][] sistema, double grau) {
+    public GaussSeidel(double[][] sistema, double grau) {
 
         this.sistema = sistema;
         this.grau = grau;
