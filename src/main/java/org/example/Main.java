@@ -36,10 +36,10 @@ public class Main {
         double[][] array3 = {{3,-4,5,-7},{2,-4,5,-1},{3,-1,7,5},{1,2,-4,5}};
         double [] solucao3 = {19,21,10,31};
 
-        SistemaCerto sistema2 = new SistemaCerto(array2, solucao, grau);
+        SeidelGenerico sistema2 = new SeidelGenerico(array2, solucao, grau);
         sistema2.show();
 
-        SistemaCerto sistema3 = new SistemaCerto(array3, solucao3, grau);
+        SeidelGenerico sistema3 = new SeidelGenerico(array3, solucao3, grau);
         sistema3.show();
     }
 }

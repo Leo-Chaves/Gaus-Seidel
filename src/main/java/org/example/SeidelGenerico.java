@@ -1,6 +1,8 @@
 package org.example;
 
-public class SistemaCerto{
+public class SeidelGenerico {
+
+    private int count;
 
     private double[] newVlaues;
     
@@ -14,7 +16,7 @@ public class SistemaCerto{
 
     private double grau;
    
-    public SistemaCerto(double[][] sistema, double [] solucao, double grau) {
+    public SeidelGenerico(double[][] sistema, double [] solucao, double grau) {
 
         this.sistema = sistema;
         this.solucao = solucao;
@@ -28,6 +30,7 @@ public class SistemaCerto{
     public void result() {
         double [] aux = new double[newVlaues.length];
         double produto = 0;
+        count = 1;
 
         for(int i =0; i < aux.length; i++){
 
@@ -43,6 +46,7 @@ public class SistemaCerto{
 
         do {
             setOldValues(aux);
+            count++;
 
 
             for(int i =0; i < aux.length; i++){
@@ -92,6 +96,7 @@ public class SistemaCerto{
     public void show(){
         result();
         System.out.println("-------");
+        System.out.println("Interações: " + count);
         System.out.println("final:");
         for(int i = 0;i<=getNewVlaues().length-1;i++){
             System.out.println(i +"x: "+getNewVlaues()[i]);
