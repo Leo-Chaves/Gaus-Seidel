@@ -54,6 +54,15 @@ public class GaussSeidel {//Apenas para sistemas 3x3
         } while (Math.abs(x1 - y1) >= grau && Math.abs(x2 - y2) >= grau && Math.abs(x3 - y3) >= grau);
     }
 
+    public void show(GaussSeidel seidel){
+        seidel.result();
+        System.out.println("seidel final:");
+        System.out.println(seidel.getX1());
+        System.out.println(seidel.getX2());
+        System.out.println(seidel.getX3());
+
+    }
+
     public double[][] getSistema() {
         return sistema;
     }
