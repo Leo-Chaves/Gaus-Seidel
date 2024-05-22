@@ -2,19 +2,19 @@ package org.example;
 
 public class SeidelGenerico {
 
-    private int count;
+    private int count; //Conta etapas
 
-    private double[] newVlaues;
+    private double[] newVlaues; //Guarda valores atualizados
     
-    private double[] oldValues;
+    private double[] oldValues; //Guarda valores antigos
 
-    private double[] solucao;
+    private double[] solucao; //Guarda as respostas do sitema
 
-    private double[][] sistema;
+    private double[][] sistema; //Guarda o sistema
 
-    private boolean condition;
+    private boolean condition; //Condição de parada
 
-    private double grau;
+    private double grau; //Grau de parada
    
     public SeidelGenerico(double[][] sistema, double [] solucao, double grau) {
 
@@ -22,22 +22,24 @@ public class SeidelGenerico {
         this.solucao = solucao;
         this.grau = grau;
 
+        //Inicia os valores antigos e novos com o tamanho de colunas do sistema
         newVlaues = new double[sistema[0].length];
         oldValues = new double[sistema[0].length];
     }
 
 
     public void result() {
+        //Variavel aux recebe valores novos
         double [] aux = new double[newVlaues.length];
         double produto = 0;
-        count = 1;
+        count = 1; //Conta etapas
 
-        for(int i =0; i < aux.length; i++){
+        for(int i =0; i < aux.length; i++){ //Loop da primeira interação
 
             produto = 0;
-            produto = produto(produto, aux, i);
+            produto = produto(produto, aux, i); //Soma das multiplicações das colunas
 
-            aux[i]=(solucao[i] - (produto))/sistema[i][i];
+            aux[i]=(solucao[i] - (produto))/sistema[i][i]; //Divide a soma da multiplicação da coluna pelo valor que multiplica X e subitrai pelo resultado
 
             System.out.println(i +": "+ aux[i]);           
         }
@@ -48,8 +50,7 @@ public class SeidelGenerico {
             setOldValues(aux);
             count++;
 
-
-            for(int i =0; i < aux.length; i++){
+            for(int i =0; i < aux.length; i++){ //Loop do restante de interações
 
                 produto = 0;
                 produto = produto(produto, aux, i);
@@ -61,13 +62,13 @@ public class SeidelGenerico {
             System.out.println("-------");
             setNewVlaues(aux);
 
-            condition = condition(newVlaues, oldValues);
+            condition = condition(newVlaues, oldValues); //Verifica  condição
             
         } while (condition == true);
     }
 
 
-    private double produto(double produto, double [] aux, int i) {
+    private double produto(double produto, double [] aux, int i) {// soma das multiplicações das colunas
 
          for(int j = 0; j < aux.length; j++){
           if(j != i){
@@ -82,9 +83,9 @@ public class SeidelGenerico {
         double [] aux = new double[newVlaues.length];
 
         for(int i =0; i < newValues.length; i++){
-            aux[i] = Math.abs(newValues[i] - oldValues[i]);
+            aux[i] = Math.abs(newValues[i] - oldValues[i]); //coloca a subtração de todos os novos valores pelos antigos em aux
 
-            if(Math.abs(aux[i]) >= grau ){
+            if(Math.abs(aux[i]) >= grau ){ // caso algum deles retorne algo maior que o grau o criterio de parada é anulado
                 return true;
             }
         }
