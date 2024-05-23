@@ -4,7 +4,7 @@ public class SeidelGenerico {
 
     private int count; //Conta etapas
 
-    private double[] newVlaues; //Guarda valores atualizados
+    private double[] newValues; //Guarda valores atualizados
     
     private double[] oldValues; //Guarda valores antigos
 
@@ -23,14 +23,14 @@ public class SeidelGenerico {
         this.grau = grau;
 
         //Inicia os valores antigos e novos com o tamanho de colunas do sistema
-        newVlaues = new double[sistema[0].length];
+        newValues = new double[sistema[0].length];
         oldValues = new double[sistema[0].length];
     }
 
 
     public void result() {
         //Variavel aux recebe valores novos
-        double [] aux = new double[newVlaues.length];
+        double [] aux = new double[newValues.length];
         double produto = 0;
         count = 1; //Conta etapas
 
@@ -44,7 +44,7 @@ public class SeidelGenerico {
             System.out.println(i +": "+ aux[i]);           
         }
         System.out.println("-------");   
-        setNewVlaues(aux);
+        setNewValues(aux);
 
         do {
             setOldValues(aux);
@@ -60,9 +60,9 @@ public class SeidelGenerico {
                 System.out.println(i +": "+ aux[i]);
             }
             System.out.println("-------");
-            setNewVlaues(aux);
+            setNewValues(aux);
 
-            condition = condition(newVlaues, oldValues); //Verifica  condição
+            condition = condition(newValues, oldValues); //Verifica  condição
             
         } while (condition == true);
     }
@@ -80,7 +80,7 @@ public class SeidelGenerico {
 
 
     private boolean condition(double[] newValues, double[] oldValues) {
-        double [] aux = new double[newVlaues.length];
+        double [] aux = new double[this.newValues.length];
 
         for(int i =0; i < newValues.length; i++){
             aux[i] = Math.abs(newValues[i] - oldValues[i]); //coloca a subtração de todos os novos valores pelos antigos em aux
@@ -94,24 +94,52 @@ public class SeidelGenerico {
         
     }
 
+    public boolean checkConvergenceSassenfeld (){
+        int n = sistema.length;
+        double aux = 0;
+        double[] beta = new double[sistema[0].length];
+
+        for (int i = 0; i < beta.length; i++) {
+            beta[i] = 1.0;
+        }
+
+        for(int i=0; i<n;i++){
+            aux = 0;
+            for(int j=0;j<=newValues.length-1; j++){
+                if(j != i) {
+                    aux += Math.abs(sistema[i][j] * beta[j]);
+                }
+            }
+            beta[i] = aux/Math.abs(sistema[i][i]);
+            aux = beta[i];
+
+            if(aux > 1){
+                System.out.println("não converge");
+                return false;
+            }
+        }
+        System.out.println("converge");
+        return true;
+    }
+
     public void show(){
         result();
         System.out.println("-------");
         System.out.println("Interações: " + count);
         System.out.println("final:");
-        for(int i = 0;i<=getNewVlaues().length-1;i++){
-            System.out.println(i +"x: "+getNewVlaues()[i]);
+        for(int i = 0; i<= getNewValues().length-1; i++){
+            System.out.println(i +"x: "+ getNewValues()[i]);
         }
     }
 
 
-    public double[] getNewVlaues() {
-        return newVlaues;
+    public double[] getNewValues() {
+        return newValues;
     }
 
 
-    public void setNewVlaues(double[] sistemaNew) {
-        this.newVlaues = sistemaNew;
+    public void setNewValues(double[] sistemaNew) {
+        this.newValues = sistemaNew;
     }
 
 

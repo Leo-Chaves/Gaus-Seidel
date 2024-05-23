@@ -99,6 +99,27 @@ public class JacobGenerico {
 
     }
 
+    public boolean checkConvergence(){
+        int n = sistema.length;
+        double aux = 0;
+        for(int i=0; i<n;i++){
+            aux = 0;
+            for(int j=0;j<=newValues.length-1; j++){
+                if(j != i) {
+                    aux += Math.abs(sistema[i][j]);
+                }
+            }
+            aux = aux/Math.abs(sistema[i][i]);
+
+            if(aux > 1){
+                System.out.println("não converge");
+                return false;
+            }
+        }
+        System.out.println("converge");
+        return true;
+    }
+
     public void show(){
         result();
         System.out.println("-------");
