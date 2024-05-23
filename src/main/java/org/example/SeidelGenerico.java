@@ -94,7 +94,7 @@ public class SeidelGenerico {
         
     }
 
-    public boolean checkConvergenceSassenfeld (){
+    public boolean checkConvergenceSassenfeld(){
         int n = sistema.length;
         double aux = 0;
         double[] beta = new double[sistema[0].length];
@@ -105,15 +105,14 @@ public class SeidelGenerico {
 
         for(int i=0; i<n;i++){
             aux = 0;
-            for(int j=0;j<=newValues.length-1; j++){
+            for(int j=0;j<=beta.length-1; j++){
                 if(j != i) {
-                    aux += Math.abs(sistema[i][j] * beta[j]);
+                    aux += sistema[i][j] * beta[j];
                 }
             }
-            beta[i] = aux/Math.abs(sistema[i][i]);
-            aux = beta[i];
+            beta[i] = aux / sistema[i][i];
 
-            if(aux > 1){
+            if (beta[i] > 1) {
                 System.out.println("não converge");
                 return false;
             }
